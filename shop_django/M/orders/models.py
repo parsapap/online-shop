@@ -13,3 +13,10 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     discount = models.IntegerField(blank=True, null=True, default=None)
 
+    class Meta:
+        ordering = ('paid', '-updated')
+
+    def __str__(self):
+        return f'{self.user} - {str(self.id)}'
+
+
