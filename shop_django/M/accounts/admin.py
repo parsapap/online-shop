@@ -5,6 +5,10 @@ from django.contrib.auth.models import Group
 from .models import User, OtpCode
 
 
+@admin.register(OtpCode)
+class OtpCodeAdmin(admin.ModelAdmin):
+    list_display = ('phone_number', 'code', 'created')
+
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
@@ -28,4 +32,4 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.unregister(Group)
-admin.site.register(User, UserAdmi
+admin.site.register(User, UserAdmin)
