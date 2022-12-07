@@ -36,10 +36,13 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.Form):
-    email = forms.EmailField()
-    full_name = forms.CharField(label='Full Name')
-    phone_number = forms.CharField(max_length=11)
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    full_name = forms.CharField(label='',
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}))
+    phone_number = forms.CharField(max_length=11, label='', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
+    password = forms.CharField(label='',
+                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
     def clean_email(self):
         email = self.cleaned_data['email']
