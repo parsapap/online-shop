@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+
 from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm
 from django.views import View
 import random
 from utils import send_otp_code
 from .models import OtpCode, User
 from django.contrib import messages
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 
 
 class UserRegisterView(View):
@@ -86,3 +90,22 @@ class UserLogoutView(LoginRequiredMixin, View):
         logout(request)
         messages.success(request, 'you logged out successfully', 'success')
         return redirect('home:home')
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'account/password_reset_form.html'
+    success_url = reverse_lazy('account:password_reset_done')
+    email_template_name = 'account/password_reset_email.html'
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'account/password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'account/password_reset_confirm.html'  # this is template for password reset form
+    success_url = reverse_lazy('account:password_reset_complete')
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'account/password_reset_complete.html'
