@@ -16,6 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
+
 @admin.register(Comment)
 class CommentAdmin(BaseAdmin):
-    list_display = ['user', 'product', 'body', 'created', 'updated', 'is_active', 'is_deleted']
+    list_display = ['user', 'product', 'created', 'updated', 'is_active', 'is_deleted']
