@@ -119,6 +119,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.authenticate.EmailBackend'
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
