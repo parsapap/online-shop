@@ -10,9 +10,13 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(BaseAdmin):
-    list_display = ('id', 'user', 'updated', 'paid', 'created', 'updated',  'is_deleted')
+    list_display = ('id', 'user', 'updated', 'paid', 'created', 'updated', 'is_deleted')
     list_filter = ('paid',)
     inlines = (OrderItemInline,)
 
 
-admin.site.register(Coupon)
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ('code', 'valid_from', 'valid_to', 'discount', 'active')
+    list_filter = ('active', 'valid_from', 'valid_to')
+    search_fields = ('code',)
