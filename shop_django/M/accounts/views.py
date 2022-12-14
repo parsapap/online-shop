@@ -76,7 +76,7 @@ class UserLoginView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(request, phone_number=cd['phone'], password=cd['password'])
+            user = authenticate(request, phone_number=cd['phone_number'], password=cd['password'])
             if user is not None:
                 login(request, user)
                 messages.success(request, 'you logged in successfully', 'info')
@@ -93,19 +93,19 @@ class UserLogoutView(LoginRequiredMixin, View):
 
 
 class UserPasswordResetView(PasswordResetView):
-    template_name = 'account/password_reset_form.html'
-    success_url = reverse_lazy('account:password_reset_done')
-    email_template_name = 'account/password_reset_email.html'
+    template_name = 'accounts/password_reset_form.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
+    email_template_name = 'accounts/password_reset_email.html'
 
 
 class UserPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'account/password_reset_done.html'
+    template_name = 'accounts/password_reset_done.html'
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'account/password_reset_confirm.html'  # this is template for password reset form
-    success_url = reverse_lazy('account:password_reset_complete')
+    template_name = 'accounts/password_reset_confirm.html'  # this is template for password reset form
+    success_url = reverse_lazy('accounts:password_reset_complete')
 
 
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'account/password_reset_complete.html'
+    template_name = 'accounts/password_reset_complete.html'
