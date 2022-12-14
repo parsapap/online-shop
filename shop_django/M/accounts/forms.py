@@ -61,7 +61,7 @@ class UserRegistrationForm(forms.Form):
 
 
 class VerifyCodeForm(forms.Form):
-    code = forms.IntegerField()
+    code = forms.IntegerField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Code'}))
 
 
 class UserLoginForm(forms.Form):
