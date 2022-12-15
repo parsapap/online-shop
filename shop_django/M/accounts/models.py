@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=250, unique=True)
     phone_number = models.CharField(max_length=11, unique=True)
     full_name = models.CharField(max_length=250)
@@ -18,15 +18,15 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        # "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def has_module_perms(self, app_label):
-        # "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
+    # def has_perm(self, perm, obj=None):
+    #     # "Does the user have a specific permission?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
+    #
+    # def has_module_perms(self, app_label):
+    #     # "Does the user have permissions to view the app `app_label`?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
 
     @property
     def is_staff(self):
