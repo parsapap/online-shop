@@ -9,12 +9,14 @@ class ProductAdmin(BaseAdmin):
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name', 'slug']
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name']
 
 
 @admin.register(Comment)
