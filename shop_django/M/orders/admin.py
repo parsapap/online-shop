@@ -13,6 +13,7 @@ class OrderAdmin(BaseAdmin):
     list_display = ('id', 'user', 'updated', 'paid', 'created', 'updated', 'is_deleted')
     list_filter = ('paid',)
     inlines = (OrderItemInline,)
+    search_fields = ['user']
 
 
 @admin.register(Coupon)
