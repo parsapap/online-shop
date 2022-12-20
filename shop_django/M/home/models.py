@@ -22,10 +22,8 @@ class Category(models.Model):
         return reverse('home:category_filter', args=[self.slug])
 
 
-
-
 class Product(BaseModel):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    category = models.ManyToManyField(Category, related_name='products')
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d')
