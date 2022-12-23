@@ -28,8 +28,8 @@ class Product(BaseModel):
     slug = models.SlugField(max_length=100, unique=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d')
     description = models.TextField()
-    # price = models.DecimalField(max_digits=10, decimal_places=2)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    # price = models.IntegerField()
     available = models.BooleanField(default=True)
 
     class Meta:
