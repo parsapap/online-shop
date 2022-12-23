@@ -67,14 +67,28 @@
                     <span>${{ product.price }}</span>
                 </div>
                 <p class="lead">{{ product.description }}</p>
-                <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                           style="max-width: 3rem"/>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart
-                    </button>
-                </div>
+                <form action="{% url 'orders:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class="btn btn-outline-dark" type="submit"  value="Add">
+{#                        <button class="btn btn-outline-dark flex-shrink-0" type="button">#}
+{#                            <i class="bi-cart-fill me-1"></i>#}
+{#                            Add to cart#}
+{#                        </button>#}
+                    </form>
+{#                <div class="d-flex">#}
+{#                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"#}
+{#                           style="max-width: 3rem"/>#}
+{#                    <form action="{% url 'orders:cart_add' product.id %}" method="post">#}
+{#                        {% csrf_token %}#}
+{#                        {{ form.as_p }}#}
+{#                        <input class="btn btn-info"   value="Add">#}
+{#                        <button class="btn btn-outline-dark flex-shrink-0" type="button">#}
+{#                            <i class="bi-cart-fill me-1"></i>#}
+{#                            Add to cart#}
+{#                        </button>#}
+{#                    </form>#}
+{#                </div>#}
             </div>
         </div>
     </div>
