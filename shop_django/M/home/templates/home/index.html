@@ -17,6 +17,27 @@
     <link rel="icon"
           href='https://www.flaticon.com/download/icon/179309?icon_id=179309&author=196&team=196&keyword=Apple&pack=packs%2Flogotypes&style=107&format=png&color=&colored=2&size=512&selection=1&premium=0&type=standard&search=apple'
           type="image/icon type">
+    <style>
+        .dropdown-menu li {
+            position: relative;
+        }
+
+        .dropdown-menu .dropdown-submenu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: -7px;
+        }
+
+        .dropdown-menu .dropdown-submenu-left {
+            right: 100%;
+            left: auto;
+        }
+
+        .dropdown-menu > li:hover > .dropdown-submenu {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -51,23 +72,44 @@
                             <hr class="dropdown-divider"/>
                         </li>
                         {% for category in categories %}
-                            <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                            <li>
+                                <a class="dropdown-item"
+                                   href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                                {% for sub in category.scategory.all %}
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ sub.get_absolute_url }}">{{ sub.name }}</a>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
                             </li>
-
-                            <div class="btn-group">
-                                <a href="" type="button" class="btn btn-danger">Action</a>
-                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span class="visually-hidden">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                </ul>
-                            </div>
                         {% endfor %}
+
+
+
+
+
+
+                        {#                            <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>#}
+                        {#                            </li>#}
+
+                        {#                            <div class="btn-group">#}
+                        {#                                <a href="{{ category.get_absolute_url }}" type="button"#}
+                        {#                                   class="btn btn-secondary">{{ category.name }}</a>#}
+                        {#                                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"#}
+                        {#                                        data-bs-toggle="dropdown" aria-expanded="false">#}
+                        {#                                    <span class="visually-hidden">Toggle Dropdown</span>#}
+                        {#                                </button>#}
+                        {#                                <ul class="dropdown-menu">#}
+                        {#                                    {% for sub in category.scategory.all %}#}
+                        {#                                        <li><a class="dropdown-item" href="#">{{ sub.name }}</a></li>#}
+                        {#                                    {% endfor %}#}
+                        {#                                    <li>#}
+                        {#                                        <hr class="dropdown-divider">#}
+                        {#                                    </li>#}
+                        {#                                </ul>#}
+                        {#                            </div>#}
+
                     </ul>
                 </li>
             </ul>
