@@ -55,7 +55,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'accounts:user_logout' %}"><i
                             class="fa-solid fa-right-from-bracket"></i></a></li>
                     <li class="nav-item d-flex justify-content-end"><a class="nav-link"
-                                                                       href="{% url 'accounts:user_logout' %}"><i
+                                                                       href="{% url 'accounts:user_profile' request.user.id %}"><i
                             class="fa-solid fa-user"></i></a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'accounts:user_login' %}"><i
@@ -78,7 +78,8 @@
                                 {% for sub in category.scategory.all %}
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li>
-                                            <a class="dropdown-item" href="{{ sub.get_absolute_url }}">{{ sub.name }}</a>
+                                            <a class="dropdown-item"
+                                               href="{{ sub.get_absolute_url }}">{{ sub.name }}</a>
                                         </li>
                                     </ul>
                                 {% endfor %}
