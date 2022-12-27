@@ -9,6 +9,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    image = models.ImageField(null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['email', 'full_name']
