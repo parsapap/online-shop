@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm
+from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm, UserProfileEditForm
 from django.views import View
 import random
 from utils import send_otp_code
@@ -109,3 +109,23 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
 
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'accounts/password_reset_complete.html'
+
+
+class UserProfileView(View):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        return render(request, 'accounts/profile.html', {'user': user})
+
+
+class UserProfileEditView(View):
+    def get(self, request):
+        form = UserProfileEditForm(instance=request.user)
+        return render(request, 'accounts/edit_profile.html', {'form': form})
+
+    def post(self, request):
+        form = UserProfileEditForm(data=request.POST, files=request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile successfully updated', 'success')
+            return redirect('accounts:user_profile', request.user.id)
+        return render(request, 'accounts/edit_profile.html', {'form': form})
