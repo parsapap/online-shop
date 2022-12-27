@@ -70,3 +70,16 @@ class UserLoginForm(forms.Form):
                                        attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
     password = forms.CharField(label='',
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'phone_number', 'full_name', 'address', 'image')
+        widgets = {
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
+            'image': forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'Image'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'})
+        }
