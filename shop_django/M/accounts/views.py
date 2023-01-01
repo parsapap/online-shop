@@ -111,13 +111,13 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'accounts/password_reset_complete.html'
 
 
-class UserProfileView(View):
+class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
         return render(request, 'accounts/profile.html', {'user': user})
 
 
-class UserProfileEditView(View):
+class UserProfileEditView(LoginRequiredMixin, View):
     def get(self, request):
         form = UserProfileEditForm(instance=request.user)
         return render(request, 'accounts/edit_profile.html', {'form': form})
