@@ -1,10 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import User
-from .serializers import ProfileSerializer, ProfileEditSerializer, ProductListSerializer, CategoryListSerializer, ProductDetailSerializers
+from .serializers import ProfileSerializer, ProfileEditSerializer, ProductListSerializer, CategoryListSerializer, \
+    ProductDetailSerializer, CommentCreateSerializer, CommentListSerializer
 from rest_framework import status
 from rest_framework import generics
-from home.models import Product, Category
+from home.models import Product, Category, Comment
 
 
 # account app api views
@@ -38,5 +39,22 @@ class CategoryListApiView(generics.ListAPIView):
 class ProductDetailApiView(APIView):
     def get(self, request, slug):
         product = Product.objects.get(slug=slug)
-        ser_data = ProductDetailSerializers(instance=product)
+        ser_data = ProductDetailSerializer(instance=product)
         return Response(ser_data.data, status=status.HTTP_200_OK)
+
+
+class CommentCreateApiView(APIView):
+    def post(self, request):
+        user = request.user
+        product = Product.objects.get(id=request.data['product'])
+        ser_data = CommentCreateSerializer(data=request.data)
+        if ser_data.is_valid():
+            ser_data.save(user=user, product=product)
+            return Response(ser_data.data, status=status.HTTP_200_OK)
+
+        return Response(ser_data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CommentListApiView(generics.ListAPIView):
+    queryset = Comment.objects.filter(is_reply=False)
+    serializer_class = CommentListSerializer
