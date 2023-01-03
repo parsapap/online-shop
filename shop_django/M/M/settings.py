@@ -38,8 +38,13 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'orders.apps.OrdersConfig',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
     'storages',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'drf_yasg',
+
 ]
 
 MIDDLEWARE = [
@@ -149,3 +154,10 @@ EMAIL_HOST_USER = 'parsa.ahmaripour@gmail.com'
 EMAIL_HOST_PASSWORD = 'rnuwqhrhcgkwxotx'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Social Network'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+}
