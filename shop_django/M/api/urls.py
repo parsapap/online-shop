@@ -9,4 +9,6 @@ urlpatterns = [
     path('product/list/', views.ProductListApiView.as_view(), name='product_list_api'),
     path('category/list/', views.CategoryListApiView.as_view(), name='category_list_api'),
     path('product/detail/<slug:slug>/', views.ProductDetailApiView.as_view(), name='product_detail_api'),
+    path('comment/create/', views.CommentCreateApiView.as_view(), name='comment_create_api'),
+    path('commnet/list/', views.CommentListApiView.as_view(), name='comment_list_api'),
 ]
