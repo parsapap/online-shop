@@ -18,6 +18,9 @@ class Order(BaseModel):
     def __str__(self):
         return f'{self.user} - {str(self.id)}'
 
+    def get_total_price(self):
+        return sum(item.get_cost() for item in self.items.all())
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -27,6 +30,9 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def get_cost(self):
+        return self.price * self.quantity
 
 
 class Coupon(models.Model):
