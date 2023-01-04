@@ -3,6 +3,7 @@ from django.views import View
 from .cart import Cart
 from home.models import Product
 from .forms import CardAddForm
+from .models import Order, OrderItem, Coupon
 
 
 class CartView(View):
@@ -27,3 +28,13 @@ class CartRemoveView(View):
         product = get_object_or_404(Product, id=product_id)
         cart.remove(product)
         return redirect('orders:cart')
+
+
+class OrderCreateView(View):
+    def get(self, request):
+        cart = Cart(request)
+        order = Order.objects.create(user=request.user)
+        for item in cart:
+            OrderItem.objects.create(order=order, product=item['product'], price=item['price'],
+                                     quantity=item['quantity'])
+            return redirect('orders:order_detail', order.id)
