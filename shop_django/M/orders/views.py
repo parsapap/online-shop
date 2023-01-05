@@ -58,7 +58,7 @@ class OrderDetailView(LoginRequiredMixin, View):
 
 
 # Zarin Pal
-MERCHANT = '41b3a45225a8c34f34186d8484ba6e87413d'
+MERCHANT = '41b3a452-5a8c-4f34-86d8-84ba6e87413d'
 ZP_API_REQUEST = "https://api.zarinpal.com/pg/v4/payment/request.json"
 ZP_API_VERIFY = "https://api.zarinpal.com/pg/v4/payment/verify.json"
 ZP_API_STARTPAY = "https://www.zarinpal.com/pg/StartPay/{authority}"
