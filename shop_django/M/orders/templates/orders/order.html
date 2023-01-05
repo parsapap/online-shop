@@ -56,17 +56,20 @@
                             <div class="d-flex flex-row pb-3">
                                 <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
                                     <div class="d-flex align-items-center pe-3">
-                                        <input class="form-check-input" type="radio" name="radioNoLabelX"
-                                               id="radioNoLabel22"
-                                               value="" aria-label="..."/>
+{#                                        <input class="form-check-input" type="radio" name="radioNoLabelX"#}
+{#                                               id="radioNoLabel22"#}
+{#                                               value="" aria-label="..."/>#}
                                     </div>
                                     <div class="d-flex flex-column py-1">
-                                        <p class="mb-1 small text-primary">Discount code</p><br>
+                                        <p class="mb-1 small text-primary">Discount code</p>
                                         <div class="d-flex flex-row align-items-center">
-                                            <form action="{% url 'orders:apply_coupon' order.id %}" method="Post">
+                                            <form action="{% url 'orders:apply_coupon' order.id %}" method="Post"
+                                                  class="">
+                                                <div class="input-group">
                                                 {% csrf_token %}
                                                 {{ form.as_p }}
-                                                <input type="submit" class="btn btn-outline-primary" value="Apply">
+                                                <button type="submit" class="btn btn-outline-primary h-50 mt-4">Apply</button>
+                                                </div>
                                             </form>
 
                                             {#                                            <h6 class="mb-0 text-primary pe-1">code : </h6>#}
