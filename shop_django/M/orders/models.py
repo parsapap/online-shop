@@ -19,7 +19,10 @@ class Order(BaseModel):
         return f'{self.user} - {str(self.id)}'
 
     def get_total_price(self):
-        return sum(item.get_cost() for item in self.items.all())
+        total = sum(item.get_cost() for item in self.items.all())
+        if self.discount:
+            return int(((100 - self.discount) / 100) * total)
+        return total
 
 
 class OrderItem(models.Model):
