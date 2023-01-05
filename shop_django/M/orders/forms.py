@@ -8,7 +8,7 @@ class CardAddForm(forms.Form):
 
 
 class CouponApplyForm(forms.Form):
-    code = forms.CharField(label='Code', widget=forms.TextInput(attrs={'class': 'mb-0 text-primary pe-1'}))
+    code = forms.CharField(label='Code', widget=forms.TextInput(attrs={'class': 'text-primary form-control mb-2'}))
 
 
 
