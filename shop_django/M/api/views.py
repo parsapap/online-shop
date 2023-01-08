@@ -2,10 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import User
 from .serializers import ProfileSerializer, ProfileEditSerializer, ProductListSerializer, CategoryListSerializer, \
-    ProductDetailSerializer, CommentCreateSerializer, CommentListSerializer
+    ProductDetailSerializer, CommentCreateSerializer, CommentListSerializer, OrderItemSerializer, OrderSerializer
 from rest_framework import status
 from rest_framework import generics
 from home.models import Product, Category, Comment
+from orders.models import Order, OrderItem
+from orders.cart import Cart
 
 
 # account app api views
@@ -58,3 +60,34 @@ class CommentCreateApiView(APIView):
 class CommentListApiView(generics.ListAPIView):
     queryset = Comment.objects.filter(is_reply=False)
     serializer_class = CommentListSerializer
+
+
+class OrderCreateApiView(APIView):
+    '''
+        method post:
+            for create order and save order in database
+    '''
+
+    def post(self, request):
+        order = Order.objects.create(user=request.user)
+        cart = Cart(request)
+        for item in cart:
+            OrderItem.objects.create(order=order, product=item['product'], price=float(item['price']),
+                                     quantity=item['quantity'])
+        cart.clear()
+        ser_data = OrderSerializer(instance=order)
+        result = ser_data.data
+        result['message'] = 'order created'
+        return Response(result, status=status.HTTP_200_OK)
+
+
+class OrderDetailApiView(APIView):
+    '''
+        method get:
+            for get order detail and show order items
+    '''
+
+    def get(self, request, order_id):
+        order = Order.objects.get(id=order_id)
+        ser_data = OrderSerializer(instance=order)
+        return Response(ser_data.data, status=status.HTTP_200_OK)
