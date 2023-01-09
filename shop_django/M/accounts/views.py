@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from orders.models import Order, OrderItem
 
 from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm, UserProfileEditForm
 from django.views import View
@@ -114,7 +115,12 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
-        return render(request, 'accounts/profile.html', {'user': user})
+        orders = Order.objects.filter(user=user, paid=True)
+        dic = {}
+        for order in orders:
+            order_items = OrderItem.objects.filter(order=order)
+            dic[order] = order_items
+        return render(request, 'accounts/profile.html', {'user': user, 'orders': dic})
 
 
 class UserProfileEditView(LoginRequiredMixin, View):
