@@ -56,7 +56,7 @@
 
 {% endif %}
 
-<section class="bg-dark vh-100">
+<section class="bg-dark h-100">
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-4">
@@ -121,6 +121,75 @@
                 </div>
 
             </div>
+
+            <div class="row">
+                <div class="text-center">
+
+                    <h3 class="text-light mb-5 border-bottom border-light border-1 w-50 mx-auto mt-5 pb-3">Your
+                        shopping
+                        carts</h3>
+                </div>
+                <br>
+                {% for order,order_item in orders.items %}
+                    <div class="col-md-6">
+                        <div class="card mb-5">
+                            <div class="card-body text-dark">
+                                <div class="row d-flex">
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-dark text-start ms-2">
+                                            Code: {{ order.id }}
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-end me-2">
+                                            Date: {{ order.created }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% for item in order_item %}
+                                    <div class="card text-light bg-dark my-2">
+                                        <div class="row d-flex text-center">
+                                            <div class="col-4">
+                                                <p class="mb-4 mt-4"><span
+                                                        class="font-italic me-1">{{ item.product.name }}</span>
+                                                </p>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <p class="mb-4 mt-4"><span
+                                                        class="font-italic me-1">{{ item.quantity }}</span>
+                                                </p>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <p class="mb-4 mt-4"><span
+                                                        class="font-italic me-1">$ {{ item.price }} </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                <div class="row d-flex mt-3">
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-dark text-start ms-2">
+                                            {#                                            Total: {{ receipt.total_price }} T#}
+                                            {#                                        </p>#}
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-end me-2">
+                                            Final: $ {{ order.get_total_price }}
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 </section>
