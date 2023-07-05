@@ -1,0 +1,138 @@
+/*google font*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,800,900&display=swap');
+
+
+/*slider*/
+#carouselExampleIndicators {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+#carouselExampleIndicators .carousel-inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #000;
+}
+
+#carouselExampleIndicators .carousel-inner:before {
+    position: absolute;
+    content: '';
+    background: rgb(2, 2, 2);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+#carouselExampleIndicators .carousel-inner .carousel-item {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: url('');
+    background-size: 100% 100%;
+    background-position: center;
+    background-attachment: fixed;
+    object-fit: scale-down;
+}
+
+
+#carouselExampleIndicators .carousel-inner .carousel-item .info {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    width: 100%;
+    z-index: 1;
+    text-align: center;
+}
+
+#carouselExampleIndicators .carousel-inner .carousel-item h1 {
+    height: auto;
+    color: #fff;
+    width: 100%;
+    z-index: 1;
+    text-align: center;
+    font-size: 5.5em;
+    font-weight: 750;
+}
+
+#carouselExampleIndicators .carousel-inner .carousel-item p {
+    height: auto;
+    color: #ccc;
+    width: 100%;
+    z-index: 1;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+.glow-on-hover {
+    width: 220px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #063b74;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
